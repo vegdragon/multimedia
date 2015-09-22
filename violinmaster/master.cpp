@@ -2,6 +2,8 @@
 #include <iostream>
 #include <fstream>
 
+#include "PitchNode.h"
+
 using namespace std;
 
 
