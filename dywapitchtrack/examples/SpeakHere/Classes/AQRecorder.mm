@@ -163,7 +163,7 @@ int AQRecorder::ComputeRecordBufferSize(const AudioStreamBasicDescription *forma
 
 #define USE_MUSIC_ANALYZER
 #ifdef USE_MUSIC_ANALYZER
-void AQRecorder::MyInputBufferHandler(  void *                                inUserData,
+void AQRecorder::MyInputBufferHandler(void *                                inUserData,
                                       AudioQueueRef                        inAQ,
                                       AudioQueueBufferRef                    inBuffer,
                                       const AudioTimeStamp *                inStartTime,
