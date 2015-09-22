@@ -22,20 +22,34 @@ private:
 
 void DataReader::read(char* buffer)
 {
-  fstream fout;
-  fout.open(data_source, ios::in);
+  fstream fin;
+  fin.open(data_source, ios::in);
+  if (!fin.good()) { cout<<"failed to open file"; return; }
+
   cout<<data_source<<" contents: "<<endl;
-  while(!fout.eof())
+  while(!fin.eof())
   {
-    fout.getline(buffer,256,'\n');
+    fin.getline(buffer,256,'\n');
     cout<<buffer<<endl;
   }
 
-  fout.close();
+  fin.close();
 
   return;
 }
 
+
+void testPitchNode()
+{
+  PitchDictionary pd;
+  int deviation;
+  int idx = -1;
+
+  idx = pd.frequencyToIndex(420, &deviation);
+
+  cout<<"freq(420) idx: idx="<<idx<<endl;
+  cout<<"Pitch Name = "<<pd.indexToPitchName(idx)<<endl;
+}
 
 int main(int argc, char** argv)
 {
@@ -50,7 +64,9 @@ int main(int argc, char** argv)
   cout<<endl;
   pitch_reader.read(buffer);
 
-  cin.get();
+  // cin.get();
+
+  testPitchNode();
 
   return 0;
 }

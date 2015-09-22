@@ -1,6 +1,6 @@
 CC=gcc
 CPP=g++
-CFLAGS=-I.
+CFLAGS=-g -I.
 DEPS = 
 OBJ = master.o
 
@@ -10,4 +10,6 @@ OBJ = master.o
 master: $(OBJ)
 	$(CPP) -o $@ $^ $(CFLAGS)
 
+clean: $(OBJ)
+	rm $<
 
