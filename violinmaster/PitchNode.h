@@ -18,19 +18,20 @@ class PitchWindow
 {
 public:
   PitchWindow():pos(0) { memset (ring, -1, sizeof(pitch_idx_t)*WINDOW_SIZE); }
-  void shift (pitch_idx_t idx) 
+  pitch_idx_t insert (pitch_idx_t idx)
   {
     ring[pos++] = idx;
     pos %= WINDOW_SIZE;
+    return detected();
   }
 
   /* get the pitch detected */
   pitch_idx_t detected()
   {
-    int         i;
-    pitch_idx_t result       = -1;
-    int         maxCount     = 0;
-    int         currentCount = 0;
+    unsigned int i;
+    pitch_idx_t  result       = -1;
+    int          maxCount     = 0;
+    int          currentCount = 0;
 
     for (i=0;i<WINDOW_SIZE;i++)
     {

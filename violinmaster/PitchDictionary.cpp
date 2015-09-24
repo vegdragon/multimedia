@@ -41,6 +41,10 @@ const pitch_freq_t PitchDictionary::frequencies[PITCH_COUNT] = {
 	4186,4435,4699,4978,5274,5588,5920,6272,6645,7040,7459,7902,
 };
 
+const pitch_freq_t PitchDictionary::indexToFrequency (pitch_idx_t idx)
+{
+	return frequencies[idx];
+}
 
 const char * PitchDictionary::indexToPitchName (pitch_idx_t idx)
 {
@@ -52,12 +56,12 @@ const char * PitchDictionary::indexToSylableName (pitch_idx_t idx)
 	return sylableName[pitchNames[idx][0] - 'A'];
 }
 
-pitch_idx_t PitchDictionary::frequencyToIndex (pitch_freq_t frequency, int *pDeviation)
+pitch_idx_t PitchDictionary::frequencyToIndex (pitch_freq_t frequency, pitch_freq_t *pDeviation)
 {
 	int idx = -1;
 	const int countOfFrequencies = sizeof(frequencies)/sizeof(pitch_freq_t);
-	int a = 0, b = 0, c = 0;
-	unsigned int absA = 0, absB = 0, absC = 0;
+	pitch_freq_t a = 0, b = 0, c = 0;
+	pitch_freq_t absA = 0, absB = 0, absC = 0;
 
 	if (frequency>frequencies[countOfFrequencies-1]
 		|| frequency<frequencies[0])
