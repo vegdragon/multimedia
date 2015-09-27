@@ -4,10 +4,17 @@
 #include <vector>
 #include <cstdlib>
 
-#include "PitchNode.h"
+#include "PitchDictionary.h"
+#include "MusicDetector.h"
 
 using namespace std;
 
+void musicListener (pitch_idx_t detectedIdx, int pitchCounter)
+{
+	PitchDictionary pd;
+	if (pitchCounter > 10)
+		printf ("Detected Note(%s) %d times.\n", pd.indexToPitchName(detectedIdx), pitchCounter);
+}
 
 class DataReader
 {
@@ -28,11 +35,11 @@ void DataReader::read(char* buffer)
   fin.open(data_source, ios::in);
   if (!fin.good()) { cout<<"failed to open file"; return; }
 
-  cout<<data_source<<" contents: "<<endl;
+  // cout<<data_source<<" contents: "<<endl;
   while(!fin.eof())
   {
     fin.getline(buffer,256,'\n');
-    cout<<buffer<<endl;
+    // cout<<buffer<<endl;
   }
 
   fin.close();
@@ -42,14 +49,14 @@ void DataReader::read(char* buffer)
 
 
 
-void testPitchNode(double pitchSample)
+pitch_idx_t testPitchNode(double pitchSample)
 {
   PitchDictionary pd;
   pitch_freq_t    deviation = 0;
-  int             idx = -1;
+  pitch_idx_t     idx = -1;
 
   idx = pd.frequencyToIndex(pitchSample, &deviation);
-
+#if 1
   printf ("Detected freq(%lf)\tStandard freq(%lf)\n",
 		  pitchSample, pd.indexToFrequency(idx));
 
@@ -58,6 +65,8 @@ void testPitchNode(double pitchSample)
 		  deviation,
 		  deviation/pd.indexToFrequency(idx) * 100.00
 		  );
+#endif
+  return idx;
 }
 
 int main(int argc, char** argv)
@@ -92,13 +101,26 @@ int main(int argc, char** argv)
   }
 
   //verify that the scores were stored correctly:
+#if 0
   PitchWindow pw;
+  pitch_idx_t idx = -1;
+  PitchDictionary pd;
   for (unsigned int i = 0; i < pitchSamples.size(); ++i) {
 	  std::cout << pitchSamples[i] << std::endl;
-	  testPitchNode(pitchSamples[i]);
+	  idx = testPitchNode(pitchSamples[i]);
+	  cout<<"detected pitch: "<<pd.indexToPitchName(pw.insert(idx))<<endl;
   }
+#endif
 
-
+  MusicDetector md;
+  md.initiaize();
+  md.registerMusicNoteListener(musicListener);
+  md.startDetection(10);
+  for (unsigned int i = 0; i < pitchSamples.size(); ++i)
+  {
+	md.insert(pitchSamples[i]);
+  }
+  md.stopDetection();
 
   return 0;
 }
