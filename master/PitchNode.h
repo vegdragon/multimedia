@@ -6,12 +6,12 @@
 
 class PitchNode
 {
-/*
+public:
+
 private:
   pitch_freq_t   frequency;
+  pitch_freq_t   deviation;
   pitch_idx_t    pitchIndex;
-  PitchNode *    next;
-  */
 };
 
 #endif /* #ifdef __PITCHNODE__ */

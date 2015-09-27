@@ -115,7 +115,7 @@ int main(int argc, char** argv)
   MusicDetector md;
   md.initiaize();
   md.registerMusicNoteListener(musicListener);
-  md.startDetection(10);
+  md.startDetection(5);
   for (unsigned int i = 0; i < pitchSamples.size(); ++i)
   {
 	md.insert(pitchSamples[i]);
