@@ -4,7 +4,6 @@
 #include <string.h>
 #include "PitchDictionary.h"
 
-
 class PitchNode
 {
 public:
@@ -55,15 +54,7 @@ public:
     pitch_freq_t maxNegativeDeviation;
     pitch_freq_t avgPositiveDeviation;
     pitch_freq_t avgNegativeDeviation;
-    pitch_duration_t duration;
 };
-
-typedef struct PitchNodeList
-{
-	PitchNode pitchNode;
-	PitchNode * next;
-} PitchNodeList;
-
 
 #endif /* #ifdef __PITCHNODE__ */
 

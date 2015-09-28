@@ -4,7 +4,6 @@
 #define PITCH_COUNT     108
 typedef int             pitch_idx_t;
 typedef double          pitch_freq_t;
-typedef double          pitch_duration_t;
 typedef const char *    pitch_name_t;
 
 class PitchDictionary
