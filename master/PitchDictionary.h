@@ -12,7 +12,7 @@ public:
   const pitch_freq_t indexToFrequency (pitch_idx_t idx);
   const char * indexToPitchName (pitch_idx_t idx);
   const char * indexToSylableName (pitch_idx_t idx);
-  pitch_idx_t frequencyToIndex (pitch_freq_t frequency, pitch_freq_t *pDeviation);
+  pitch_idx_t frequencyToIndex (pitch_freq_t frequency, pitch_freq_t & deviation);
   const pitch_freq_t * getFrequencies();
 
 protected:

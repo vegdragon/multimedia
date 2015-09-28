@@ -9,11 +9,19 @@
 
 using namespace std;
 
-void musicListener (pitch_idx_t detectedIdx, int pitchCounter)
+void musicListener (pitch_idx_t detectedIdx, int pitchCounter, PitchNode & pitchNode)
 {
 	PitchDictionary pd;
 	if (pitchCounter > 10)
+	{
 		printf ("Detected Note(%s) %d times.\n", pd.indexToPitchName(detectedIdx), pitchCounter);
+		printf ("PitchNode Statistics: %.2lf(%.2lf\%), %.2lf(%.2lf\%), %.2lf(%.2lf\%), %.2lf(%.2lf\%)\n",
+				pitchNode.avgNegativeDeviation, pitchNode.avgNegDeviationPercentage(),
+				pitchNode.avgPositiveDeviation, pitchNode.avgPosDeviationPercentage(),
+				pitchNode.maxNegativeDeviation, pitchNode.maxNegDeviationPercentage(),
+				pitchNode.maxPositiveDeviation, pitchNode.maxPosDeviationPercentage()
+				);
+	}
 }
 
 class DataReader
@@ -49,13 +57,14 @@ void DataReader::read(char* buffer)
 
 
 
-pitch_idx_t testPitchNode(double pitchSample)
+pitch_idx_t testPitchNode(pitch_freq_t pitchSample)
 {
   PitchDictionary pd;
   pitch_freq_t    deviation = 0;
   pitch_idx_t     idx = -1;
 
-  idx = pd.frequencyToIndex(pitchSample, &deviation);
+  idx = pd.frequencyToIndex(pitchSample, deviation);
+
 #if 1
   printf ("Detected freq(%lf)\tStandard freq(%lf)\n",
 		  pitchSample, pd.indexToFrequency(idx));

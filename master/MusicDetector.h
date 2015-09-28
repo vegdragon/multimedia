@@ -4,8 +4,9 @@
 #include <string.h>
 #include <vector>
 #include "PitchDictionary.h"
+#include "PitchNode.h"
 
-typedef void (*musicNoteListener_func_t)(pitch_idx_t detectedIdx, int pitchCounter);
+typedef void (*musicNoteListener_func_t)(pitch_idx_t, int, PitchNode &);
 
 class PitchWindow {
 public:
@@ -55,11 +56,10 @@ public:
     void startDetection(int windowSize);
     void insert(pitch_freq_t pitchSample);
     void stopDetection();
-    pitch_idx_t detectAPitch(pitch_freq_t pitchSample);
-
+    pitch_idx_t detectAPitch(pitch_freq_t pitchSample, pitch_freq_t & deviation);
 
 private:
-    int pitchCounter;
+    int detectedPitchCounter;
     pitch_idx_t lastDetectedIdx;
 
 	std::vector<musicNoteListener_func_t> musicNoteListeners;
