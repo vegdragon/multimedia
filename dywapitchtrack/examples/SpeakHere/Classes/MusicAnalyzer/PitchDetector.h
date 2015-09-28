@@ -49,7 +49,7 @@ public:
     ~PitchDetector();
     void init();
     void release();
-    const double detectPitch(SamplesNode * pSampleNote);
+    const double detectFrequency(SamplesNode * pSampleNote);
     const char * notationName(const char * pitchName);
     
 private:

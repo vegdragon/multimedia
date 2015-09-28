@@ -39,29 +39,29 @@ void PitchDetector::release()
     ;
 }
 
-//const double PitchDetector::detectPitch(INT16 * samples, NoteDesc * noteDesc, double * pDeviation)
-const double PitchDetector::detectPitch(SamplesNode * pSamplesNode)
+//const double PitchDetector::detectFrequency(INT16 * samples, NoteDesc * noteDesc, double * pDeviation)
+const double PitchDetector::detectFrequency(SamplesNode * pSamplesNode)
 {
-    double      pitchDetected   = -1.0;
+    double      freqDetected   = -1.0;
     
     if (NULL == pSamplesNode) {
         return -1.0;
     }
 
     /* todo, sample_count vs. 4096 */
-    pitchDetected = dywapitch_computepitch(&_pitchTracker,
+    freqDetected = dywapitch_computepitch(&_pitchTracker,
                                            pSamplesNode->samples,
                                            0,
                                            pSamplesNode->sampleSize);
-    pitchDetected = pitchDetected * 2;
-    if (pitchDetected >= 16.352 && pitchDetected <= 7902) {
-        pSamplesNode->noteDesc.pitchName = getPitchName(pitchDetected,
+    freqDetected = freqDetected * 2;
+    if (freqDetected >= 16.352 && freqDetected <= 7902) {
+        pSamplesNode->noteDesc.pitchName = getPitchName(freqDetected,
                                            &pSamplesNode->noteDesc.deviation);
-        pSamplesNode->noteDesc.pitchValue = pitchDetected;
+        pSamplesNode->noteDesc.pitchValue = freqDetected;
         pSamplesNode->noteDesc.toneName = notationNames[pSamplesNode->noteDesc.pitchName[0]-'A'];
     }
     
-    return pitchDetected;
+    return freqDetected;
 }
 
 

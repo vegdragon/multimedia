@@ -13,11 +13,13 @@
 #include <pthread.h>
 #include "SamplesQueue.h"
 #include "PitchDetector.h"
+#include "MusicDetector.h"
+#include "PitchNode.h"
 
 class MusicAnalyzer
 {
 public:
-    MusicAnalyzer() : _bContinue(true), _sampleQueue(NULL), _pitchDetector(NULL)
+    MusicAnalyzer() : _bContinue(true), _sampleQueue(NULL), _pitchDetector(NULL), _musicDetector(NULL)
     {
         ;
     }
@@ -34,6 +36,7 @@ public:
     
 private:
     static void * AnalyzerThread(void * data);
+    static void musicListener (pitch_idx_t detectedIdx, int pitchCounter, PitchNode & pitchNode);
     
 private:
     volatile bool           _bContinue;
@@ -42,5 +45,6 @@ private:
     pthread_cond_t          _cond;
     SamplesQueue *          _sampleQueue;
     PitchDetector *         _pitchDetector;
+    MusicDetector *         _musicDetector;
 };
 #endif /* defined(__SpeakHere__MusicAnalyzer__) */

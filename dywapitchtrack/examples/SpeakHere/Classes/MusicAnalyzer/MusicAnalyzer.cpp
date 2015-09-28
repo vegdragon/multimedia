@@ -23,6 +23,11 @@ int MusicAnalyzer::init()
     
     _pitchDetector = new PitchDetector();
     _pitchDetector->init();
+
+    _musicDetector = new MusicDetector();
+	_musicDetector->initiaize();
+	_musicDetector->registerMusicNoteListener(&MusicAnalyzer::musicListener);
+	_musicDetector->startDetection(10);
     
     return 0;
 }
@@ -32,12 +37,19 @@ int MusicAnalyzer::release()
     int ret = -1;
     
     _bContinue = false;
+
+	_musicDetector.stopDetection();
+		
     if (_sampleQueue!=NULL) {
         delete _sampleQueue;
     }
     if (_pitchDetector != NULL) {
         _pitchDetector->release();
         delete _pitchDetector;
+    }
+	if (_musicDetector != NULL) {
+        _musicDetector->release();
+        delete _musicDetector;
     }
     
     ret = pthread_mutex_destroy(&_mutex);
@@ -63,16 +75,19 @@ void * MusicAnalyzer::AnalyzerThread(void * data)
             pthread_cond_wait(&pContext->_cond, &pContext->_mutex);
         }
         else {
-            double pitchDetected = -1;
+            double freqDetected = -1;
             // decode pitch info from samples
-            pitchDetected = pContext->_pitchDetector->detectPitch(pSampleNode);
-            if (pitchDetected>0)
+            freqDetected = pContext->_pitchDetector->detectFrequency(pSampleNode);
+            if (freqDetected>0)
             {
+                /*
                 printf("\n[%s(%s) - %02f]\t[%02f]",
                    pSampleNode->noteDesc.pitchName,
                    pSampleNode->noteDesc.toneName,
                    pSampleNode->noteDesc.pitchValue,
                    pSampleNode->noteDesc.deviation);
+                   */
+				_musicDetector->insert(freqDetected);
             }
             // delete sample node.
             delete pSampleNode;
@@ -137,5 +152,20 @@ int MusicAnalyzer::stopAnalyzer()
     return result;
 }
 
+
+void MusicAnalyzer::musicListener (pitch_idx_t detectedIdx, int pitchCounter, PitchNode & pitchNode)
+{
+	PitchDictionary pd;
+	if (pitchCounter > 10)
+	{
+		printf ("Detected Note(%s) %d times.\n", pd.indexToPitchName(detectedIdx), pitchCounter);
+		printf ("PitchNode Statistics: %.2lf(%.2lf\%), %.2lf(%.2lf\%), %.2lf(%.2lf\%), %.2lf(%.2lf\%)\n",
+				pitchNode.avgNegativeDeviation, pitchNode.avgNegDeviationPercentage(),
+				pitchNode.avgPositiveDeviation, pitchNode.avgPosDeviationPercentage(),
+				pitchNode.maxNegativeDeviation, pitchNode.maxNegDeviationPercentage(),
+				pitchNode.maxPositiveDeviation, pitchNode.maxPosDeviationPercentage()
+				);
+	}
+}
 
 
