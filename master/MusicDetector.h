@@ -3,10 +3,11 @@
 
 #include <string.h>
 #include <vector>
-#include "PitchDictionary.h"
-#include "PitchNode.h"
 
-typedef void (*musicNoteListener_func_t)(pitch_idx_t, int, PitchNode &);
+#include "Pitch.h"
+#include "PitchDictionary.h"
+
+typedef void (*musicNoteListener_func_t)(pitch_idx_t, int, Pitch &);
 
 class PitchWindow {
 public:

@@ -3,24 +3,29 @@
 #include <fstream>
 #include <vector>
 #include <cstdlib>
-
+#include <string.h>
 #include "PitchDictionary.h"
 #include "MusicDetector.h"
 
 using namespace std;
 
-void musicListener (pitch_idx_t detectedIdx, int pitchCounter, PitchNode & pitchNode)
+Music gMusic;
+
+void musicListener (pitch_idx_t detectedIdx, int pitchCounter, Pitch & pitchNode)
 {
-	PitchDictionary pd;
+//	PitchDictionary pd;
 	if (pitchCounter > 10)
 	{
-		printf ("Detected Note(%s) %d times.\n", pd.indexToPitchName(detectedIdx), pitchCounter);
-		printf ("PitchNode Statistics: %.2lf(%.2lf\%), %.2lf(%.2lf\%), %.2lf(%.2lf\%), %.2lf(%.2lf\%)\n",
-				pitchNode.avgNegativeDeviation, pitchNode.avgNegDeviationPercentage(),
-				pitchNode.avgPositiveDeviation, pitchNode.avgPosDeviationPercentage(),
-				pitchNode.maxNegativeDeviation, pitchNode.maxNegDeviationPercentage(),
-				pitchNode.maxPositiveDeviation, pitchNode.maxPosDeviationPercentage()
-				);
+//		printf ("Detected Note(%s) %d times.\n", pd.indexToPitchName(detectedIdx), pitchCounter);
+//		printf ("PitchNode Statistics: %.2lf[%.2lf%%], %.2lf[%.2lf%%], %.2lf[%.2lf%%], %.2lf[%.2lf%%]\n",
+//				pitchNode.avgNegativeDeviation, pitchNode.avgNegDeviationPercentage(),
+//				pitchNode.avgPositiveDeviation, pitchNode.avgPosDeviationPercentage(),
+//				pitchNode.maxNegativeDeviation, pitchNode.maxNegDeviationPercentage(),
+//				pitchNode.maxPositiveDeviation, pitchNode.maxPosDeviationPercentage()
+//				);
+
+		Pitch * pPitch = new Pitch(pitchNode);
+		gMusic.insertAndMergeANote(pPitch);
 	}
 }
 
@@ -69,7 +74,7 @@ pitch_idx_t testPitchNode(pitch_freq_t pitchSample)
   printf ("Detected freq(%lf)\tStandard freq(%lf)\n",
 		  pitchSample, pd.indexToFrequency(idx));
 
-  printf ("Pitch Name(%s)\tdeviation(%lf)\taccuracy(%lf\%)\n",
+  printf ("Pitch Name(%s)\tdeviation(%lf)\taccuracy(%lf\%%)\n",
 		  pd.indexToPitchName(idx),
 		  deviation,
 		  deviation/pd.indexToFrequency(idx) * 100.00
@@ -130,6 +135,8 @@ int main(int argc, char** argv)
 	md.insert(pitchSamples[i]);
   }
   md.stopDetection();
+
+  gMusic.display();
 
   return 0;
 }
