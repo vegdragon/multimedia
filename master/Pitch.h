@@ -55,6 +55,8 @@ private:
 class Music
 {
 public:
+	Music();
+	virtual ~Music();
 	void insertAndMergeANote (Pitch * pPitch);
 	PitchNodeList & getNodeList();
 	void display ();

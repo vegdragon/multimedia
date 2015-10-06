@@ -83,6 +83,7 @@ void PitchNodeList::push(Pitch * pNode)
 	}
 }
 
+
 Pitch * PitchNodeList::head()
 {
 	return _head;
@@ -94,6 +95,22 @@ Pitch * PitchNodeList::last()
 }
 
 
+
+Music::Music()
+{
+	;
+}
+
+Music::~Music()
+{
+	Pitch * pPitch = NULL;
+	while ((pPitch = _pitchNodeList.head()) != NULL)
+	{
+		_pitchNodeList._head = _pitchNodeList.head()->_next;
+		delete pPitch;
+		pPitch = NULL;
+	}
+}
 
 void Music::insertAndMergeANote (Pitch * pPitch)
 {
