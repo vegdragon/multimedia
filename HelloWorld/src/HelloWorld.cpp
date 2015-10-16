@@ -19,8 +19,9 @@
 #define M_PI 3.14159265358979324
 #endif
 
-#define N 1024
-
+#define N 				1024
+#define SAMPLE_RATE 	44100
+#define HZ_PER_POINT 	SAMPLE_RATE/N
 
 using namespace std;
 
@@ -42,7 +43,7 @@ void FileToBuffer(const string& strFilename)
 void TestFft(const char* title, const kiss_fft_cpx in[N], kiss_fft_cpx out[N])
 {
   kiss_fft_cfg cfg;
-  double freq = -1;
+  double energy = -1;
   double tmp = 0;
 
   printf("%s\n", title);
@@ -50,6 +51,7 @@ void TestFft(const char* title, const kiss_fft_cpx in[N], kiss_fft_cpx out[N])
   if ((cfg = kiss_fft_alloc(N, 0/*is_inverse_fft*/, NULL, NULL)) != NULL)
   {
     size_t i;
+    size_t n;
 
     kiss_fft(cfg, in, out);
     free(cfg);
@@ -60,11 +62,16 @@ void TestFft(const char* title, const kiss_fft_cpx in[N], kiss_fft_cpx out[N])
 //             "out[%2zu] = %+f , %+f\n",
 //             i, in[i].r, in[i].i,
 //             i, out[i].r, out[i].i);
-      tmp = sqrtf(in[i].r*in[i].r + out[i].i*out[i].i);
-      freq = tmp > freq ? tmp:freq;
+      tmp = sqrtf(out[i].r*out[i].r + out[i].i*out[i].i);
+
+      if (tmp > energy)
+      {
+          energy = tmp * N / 2;
+          n = i;
+      }
     }
 
-    printf ("freq = %f \n", freq);
+    printf ("energy = %f\tn = %d\tfreq = %d \n", energy, n, n * HZ_PER_POINT);
   }
   else
   {
