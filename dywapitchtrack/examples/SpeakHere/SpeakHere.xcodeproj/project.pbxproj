@@ -18,7 +18,6 @@
 		AE23F24719F39267003B0275 /* MusicAnalyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE23F24119F39267003B0275 /* MusicAnalyzer.cpp */; };
 		AE23F24819F39267003B0275 /* PitchDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE23F24319F39267003B0275 /* PitchDetector.cpp */; };
 		AE23F24919F39267003B0275 /* SamplesQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE23F24519F39267003B0275 /* SamplesQueue.cpp */; };
-		AED253E619D02C3E003353D4 /* libdywapitchtrack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AED253E519D02C3E003353D4 /* libdywapitchtrack.a */; };
 		AED253E919D0311B003353D4 /* dywapitchtrack.c in Sources */ = {isa = PBXBuildFile; fileRef = AED253E819D0311B003353D4 /* dywapitchtrack.c */; };
 		F76949C70F40F2AC006C6FBF /* SpeakHereController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F76949C60F40F2AC006C6FBF /* SpeakHereController.mm */; };
 		F76949CE0F40F2E1006C6FBF /* speaker_grill.png in Resources */ = {isa = PBXBuildFile; fileRef = F76949C80F40F2E1006C6FBF /* speaker_grill.png */; };
@@ -60,7 +59,6 @@
 		AE23F24419F39267003B0275 /* PitchDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitchDetector.h; sourceTree = "<group>"; };
 		AE23F24519F39267003B0275 /* SamplesQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SamplesQueue.cpp; sourceTree = "<group>"; };
 		AE23F24619F39267003B0275 /* SamplesQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SamplesQueue.h; sourceTree = "<group>"; };
-		AED253E519D02C3E003353D4 /* libdywapitchtrack.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libdywapitchtrack.a; sourceTree = "<group>"; };
 		AED253E719D02DA7003353D4 /* dywapitchtrack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = dywapitchtrack.h; path = ../AudioViews/dywapitchtrack.h; sourceTree = "<group>"; };
 		AED253E819D0311B003353D4 /* dywapitchtrack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = dywapitchtrack.c; path = ../AudioViews/dywapitchtrack.c; sourceTree = "<group>"; };
 		F73FE19D0F743C1900F0F3CC /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
@@ -100,7 +98,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AED253E619D02C3E003353D4 /* libdywapitchtrack.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
@@ -117,6 +114,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				AE6C492E1BBFCA8C00D2A24C /* MusicDetector */,
 				AE23F24019F39267003B0275 /* MusicAnalyzer */,
 				F76949EE0F40F337006C6FBF /* Play & Record */,
 				F76949C50F40F2AC006C6FBF /* SpeakHereController.h */,
@@ -140,7 +138,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				AED253E519D02C3E003353D4 /* libdywapitchtrack.a */,
 				F73FE19D0F743C1900F0F3CC /* ReadMe.txt */,
 				F76949D90F40F32A006C6FBF /* AudioViews */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -203,6 +200,13 @@
 				AE23F24619F39267003B0275 /* SamplesQueue.h */,
 			);
 			path = MusicAnalyzer;
+			sourceTree = "<group>";
+		};
+		AE6C492E1BBFCA8C00D2A24C /* MusicDetector */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = MusicDetector;
 			sourceTree = "<group>";
 		};
 		F76949D90F40F32A006C6FBF /* AudioViews */ = {
@@ -372,14 +376,15 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SpeakHere_Prefix.pch;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../dywapitchtrack\"";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Classes\"";
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../dywapitchtrack/build/Debug-iphoneos\"",
+					"$(PROJECT_TEMP_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = SpeakHere;
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -390,14 +395,15 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SpeakHere_Prefix.pch;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../dywapitchtrack\"";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Classes\"";
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../dywapitchtrack/build/Debug-iphoneos\"",
+					"$(PROJECT_TEMP_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = SpeakHere;
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};

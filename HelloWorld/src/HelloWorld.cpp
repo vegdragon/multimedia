@@ -46,7 +46,7 @@ void TestFft(const char* title, const kiss_fft_cpx in[N], kiss_fft_cpx out[N])
   double energy = -1;
   double tmp = 0;
 
-  printf("%s\n", title);
+  //printf("%s\n", title);
 
   if ((cfg = kiss_fft_alloc(N, 0/*is_inverse_fft*/, NULL, NULL)) != NULL)
   {
@@ -71,7 +71,8 @@ void TestFft(const char* title, const kiss_fft_cpx in[N], kiss_fft_cpx out[N])
       }
     }
 
-    printf ("energy = %f\tn = %d\tfreq = %d \n", energy, n, n * HZ_PER_POINT);
+    if (n!=0)
+    		printf ("energy = %f\tn = %d\tfreq = %d \n", energy, n, n * HZ_PER_POINT);
   }
   else
   {
@@ -83,7 +84,7 @@ void TestFft(const char* title, const kiss_fft_cpx in[N], kiss_fft_cpx out[N])
 int main(void)
 {
   kiss_fft_cpx in[N], out[N];
-  size_t i;
+  int i;
 #if 0
   for (i = 0; i < N; i++)
     in[i].r = in[i].i = 0;

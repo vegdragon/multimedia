@@ -24,10 +24,10 @@ int MusicAnalyzer::init()
     _pitchDetector = new PitchDetector();
     _pitchDetector->init();
 
-    _musicDetector = new MusicDetector();
-	_musicDetector->initiaize();
-	_musicDetector->registerMusicNoteListener(&MusicAnalyzer::musicListener);
-	_musicDetector->startDetection(10);
+//    _musicDetector = new MusicDetector();
+//	_musicDetector->initiaize();
+//	_musicDetector->registerMusicNoteListener(&MusicAnalyzer::musicListener);
+//	_musicDetector->startDetection(10);
     
     return 0;
 }
@@ -38,7 +38,7 @@ int MusicAnalyzer::release()
     
     _bContinue = false;
 
-	_musicDetector.stopDetection();
+//	_musicDetector->stopDetection();
 		
     if (_sampleQueue!=NULL) {
         delete _sampleQueue;
@@ -47,10 +47,10 @@ int MusicAnalyzer::release()
         _pitchDetector->release();
         delete _pitchDetector;
     }
-	if (_musicDetector != NULL) {
-        _musicDetector->release();
-        delete _musicDetector;
-    }
+//	if (_musicDetector != NULL) {
+//        _musicDetector->release();
+//        delete _musicDetector;
+//    }
     
     ret = pthread_mutex_destroy(&_mutex);
     // assert(ret);
@@ -87,7 +87,7 @@ void * MusicAnalyzer::AnalyzerThread(void * data)
                    pSampleNode->noteDesc.pitchValue,
                    pSampleNode->noteDesc.deviation);
                    */
-				_musicDetector->insert(freqDetected);
+				//_musicDetector->insert(freqDetected);
             }
             // delete sample node.
             delete pSampleNode;
@@ -153,19 +153,19 @@ int MusicAnalyzer::stopAnalyzer()
 }
 
 
-void MusicAnalyzer::musicListener (pitch_idx_t detectedIdx, int pitchCounter, PitchNode & pitchNode)
-{
-	PitchDictionary pd;
-	if (pitchCounter > 10)
-	{
-		printf ("Detected Note(%s) %d times.\n", pd.indexToPitchName(detectedIdx), pitchCounter);
-		printf ("PitchNode Statistics: %.2lf(%.2lf\%), %.2lf(%.2lf\%), %.2lf(%.2lf\%), %.2lf(%.2lf\%)\n",
-				pitchNode.avgNegativeDeviation, pitchNode.avgNegDeviationPercentage(),
-				pitchNode.avgPositiveDeviation, pitchNode.avgPosDeviationPercentage(),
-				pitchNode.maxNegativeDeviation, pitchNode.maxNegDeviationPercentage(),
-				pitchNode.maxPositiveDeviation, pitchNode.maxPosDeviationPercentage()
-				);
-	}
-}
+//void MusicAnalyzer::musicListener (pitch_idx_t detectedIdx, int pitchCounter, PitchNode & pitchNode)
+//{
+//	PitchDictionary pd;
+//	if (pitchCounter > 10)
+//	{
+//		printf ("Detected Note(%s) %d times.\n", pd.indexToPitchName(detectedIdx), pitchCounter);
+//		printf ("PitchNode Statistics: %.2lf(%.2lf\%), %.2lf(%.2lf\%), %.2lf(%.2lf\%), %.2lf(%.2lf\%)\n",
+//				pitchNode.avgNegativeDeviation, pitchNode.avgNegDeviationPercentage(),
+//				pitchNode.avgPositiveDeviation, pitchNode.avgPosDeviationPercentage(),
+//				pitchNode.maxNegativeDeviation, pitchNode.maxNegDeviationPercentage(),
+//				pitchNode.maxPositiveDeviation, pitchNode.maxPosDeviationPercentage()
+//				);
+//	}
+//}
 
 

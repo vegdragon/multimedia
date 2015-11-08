@@ -135,7 +135,6 @@ int main(int argc, char** argv)
 	md.insert(pitchSamples[i]);
   }
   md.stopDetection();
-
   gMusic.display();
 
   return 0;

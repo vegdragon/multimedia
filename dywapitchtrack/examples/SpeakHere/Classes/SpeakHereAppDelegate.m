@@ -70,5 +70,20 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
     [super dealloc];
 }
 
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    // Set Background Color/Pattern
+    self.window.backgroundColor = [UIColor blackColor];
+//    self.viewController.backgroundColor = [UIColor clearColor];
+    //self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"testbg.png"]];
+    
+    // Set StatusBar Color
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
+    
+    // Add the tab bar controller's current view as a subview of the window
+    self.window.rootViewController = self.viewController;
+    [self.window makeKeyAndVisible];
+    return YES;
+}
 
 @end

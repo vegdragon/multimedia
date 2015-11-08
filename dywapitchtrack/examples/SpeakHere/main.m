@@ -48,11 +48,23 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 */
 
 #import <UIKit/UIKit.h>
+#import "SpeakHereAppDelegate.h"
 
 int main(int argc, char *argv[]) {
 	
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	int retVal = UIApplicationMain(argc, argv, nil, nil);
+    
+	int retVal;
+    
+    NSString *classString = NSStringFromClass([SpeakHereAppDelegate class]);
+    @try {
+        retVal = UIApplicationMain(argc, argv, nil, classString);
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Exception - %@",[exception description]);
+        exit(EXIT_FAILURE);
+    }
+    
 	[pool release];
 	return retVal;
 }
