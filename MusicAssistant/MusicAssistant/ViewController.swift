@@ -25,13 +25,24 @@ class ViewController: UIViewController {
     @IBOutlet weak var toolBar: UIToolbar!
     @IBOutlet weak var recordButton: UIBarButtonItem!
     
+    var isRecording = false;
     @IBAction func startRecording(sender: UIBarButtonItem)
     {
-        print("hello")
-        AQRecorderObjC.initRecorder()
-        AQRecorderObjC.startRecord()
-        
+        if (!isRecording)
+        {
+            AQRecorderObjC.initRecorder()
+            AQRecorderObjC.startRecord()
+            sender.title = "Stop"
+            isRecording = true
+        }
+        else
+        {
+            AQRecorderObjC.stopRecord()
+            sender.title = "Start"
+            isRecording = false
+        }
     }
+
     
     override func awakeFromNib()
     {

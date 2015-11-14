@@ -20,6 +20,8 @@
 		AE58BB1B1BD2386F0070EFC1 /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE58BB141BD2386F0070EFC1 /* CADebugMacros.cpp */; };
 		AE58BB1C1BD2386F0070EFC1 /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE58BB171BD2386F0070EFC1 /* CAStreamBasicDescription.cpp */; };
 		AE58BB1D1BD2386F0070EFC1 /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE58BB191BD2386F0070EFC1 /* CAXException.cpp */; };
+		AE61C4EC1BF764360017684E /* kissfft_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE61C4E81BF764360017684E /* kissfft_api.cpp */; };
+		AE61C4ED1BF764360017684E /* kiss_fft.c in Sources */ = {isa = PBXBuildFile; fileRef = AE61C4E91BF764360017684E /* kiss_fft.c */; };
 		AE6F927C1BCFECFA0091DC56 /* AQPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = AE6F927B1BCFECFA0091DC56 /* AQPlayer.mm */; };
 		AE88D3CD1BE4BE4500C2617D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE88D3CC1BE4BE4500C2617D /* AVFoundation.framework */; };
 		AEA477551BF0E48200FE9AE4 /* MusicDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEA477531BF0E48200FE9AE4 /* MusicDetector.cpp */; };
@@ -76,6 +78,11 @@
 		AE58BB181BD2386F0070EFC1 /* CAStreamBasicDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAStreamBasicDescription.h; sourceTree = "<group>"; };
 		AE58BB191BD2386F0070EFC1 /* CAXException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAXException.cpp; sourceTree = "<group>"; };
 		AE58BB1A1BD2386F0070EFC1 /* CAXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
+		AE61C4E81BF764360017684E /* kissfft_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kissfft_api.cpp; sourceTree = "<group>"; };
+		AE61C4E91BF764360017684E /* kiss_fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kiss_fft.c; sourceTree = "<group>"; };
+		AE61C4EA1BF764360017684E /* kiss_fft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kiss_fft.h; sourceTree = "<group>"; };
+		AE61C4EB1BF764360017684E /* kissfft.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kissfft.hh; sourceTree = "<group>"; };
+		AE61C4F61BF769E10017684E /* _kiss_fft_guts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _kiss_fft_guts.h; sourceTree = "<group>"; };
 		AE6F927A1BCFECFA0091DC56 /* AQPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQPlayer.h; sourceTree = "<group>"; };
 		AE6F927B1BCFECFA0091DC56 /* AQPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AQPlayer.mm; sourceTree = "<group>"; };
 		AE88D3CC1BE4BE4500C2617D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -150,6 +157,7 @@
 		AE1F2BA21BCD41F900FE5021 /* MusicAssistant */ = {
 			isa = PBXGroup;
 			children = (
+				AE61C4E71BF764360017684E /* KissFFT */,
 				AED6E2EF1BEEFACC00687753 /* MusicAnalyzer */,
 				AED6E2EB1BEEF8F600687753 /* FFT */,
 				AE58BB131BD2386F0070EFC1 /* PublicUtility */,
@@ -203,6 +211,18 @@
 				AE58BB1A1BD2386F0070EFC1 /* CAXException.h */,
 			);
 			path = PublicUtility;
+			sourceTree = "<group>";
+		};
+		AE61C4E71BF764360017684E /* KissFFT */ = {
+			isa = PBXGroup;
+			children = (
+				AE61C4F61BF769E10017684E /* _kiss_fft_guts.h */,
+				AE61C4E81BF764360017684E /* kissfft_api.cpp */,
+				AE61C4E91BF764360017684E /* kiss_fft.c */,
+				AE61C4EA1BF764360017684E /* kiss_fft.h */,
+				AE61C4EB1BF764360017684E /* kissfft.hh */,
+			);
+			path = KissFFT;
 			sourceTree = "<group>";
 		};
 		AE6F92791BCFECFA0091DC56 /* Classes */ = {
@@ -390,6 +410,8 @@
 				AED6E2F81BEEFACC00687753 /* SamplesQueue.cpp in Sources */,
 				AEA4775B1BF0E4B000FE9AE4 /* PitchDictionary.cpp in Sources */,
 				AE58BB1B1BD2386F0070EFC1 /* CADebugMacros.cpp in Sources */,
+				AE61C4ED1BF764360017684E /* kiss_fft.c in Sources */,
+				AE61C4EC1BF764360017684E /* kissfft_api.cpp in Sources */,
 				AE1F2BA41BCD41F900FE5021 /* AppDelegate.swift in Sources */,
 				AE16D5CD1BDBBE6C001B2791 /* ObjCtoCPlusPlus.mm in Sources */,
 				AEA4775A1BF0E4B000FE9AE4 /* Pitch.cpp in Sources */,

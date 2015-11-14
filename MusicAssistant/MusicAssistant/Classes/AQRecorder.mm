@@ -161,6 +161,9 @@ void AQRecorder::MyInputBufferHandler(	void *								inUserData,
             aqr->mMusicAnalyzer->enqueueSamples((short*)inBuffer->mAudioData, inNumPackets);
         }
         
+        extern void getFreqWithKissFft(short * auidoData, int len);
+        getFreqWithKissFft((short*)inBuffer->mAudioData, inNumPackets);
+        
         // if we're not stopping, re-enqueue the buffe so that it gets filled again
         if (aqr->IsRunning())
             XThrowIfError(AudioQueueEnqueueBuffer(inAQ, inBuffer, 0, NULL), "AudioQueueEnqueueBuffer failed");
